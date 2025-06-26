@@ -1,9 +1,10 @@
-import ButtonRedirect from "@/components/common/ButtonRedirect";
-import { products } from "@/data/products";
+import { getProductById, getProducts } from "@/lib/db";
+import styles from "./products.module.css";
 
 export async function generateStaticParams() {
+  const products = await getProducts();
   return products.map((product) => ({
-    id: product.id,
+    id: product.id.toString(),
   }));
 }
 
@@ -15,14 +16,22 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = products.find((product) => product.id === id);
-
-  console.log(product, "producto filtrado");
+  const product = await getProductById(Number(id));
 
   return (
-    <div>
-      <h1>Id de producto</h1>
-      <ButtonRedirect />
-    </div>
+    <section className={styles.container}>
+      <div className="product-image">
+        <img
+          className={styles.image}
+          src={product?.image}
+          alt={product?.title}
+        />
+      </div>
+      <div className="product-information">
+        <h1 className={styles.title}>{product?.title}</h1>
+        <p className={styles.price}>S/ {product?.price}</p>
+        <p className={styles.description}>{product?.description}</p>
+      </div>
+    </section>
   );
 }
