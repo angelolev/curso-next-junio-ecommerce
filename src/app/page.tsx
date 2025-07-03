@@ -1,17 +1,17 @@
 import ProductCard from "@/components/products/ProductCard";
 // import ProductsFetchClient from "@/components/products/ProductsFetchClient";
-import { getProducts } from "@/lib/db";
+// import { getProducts } from "@/lib/db";
 // import ProductsClient from "@/components/products/ProductsClient";
 import { ProductProps } from "@/types/product";
 // import { Suspense } from "react";
 
-// async function getProducts() {
-//   const res = await fetch("https://fakestoreapi.com/products", {
-//     cache: "no-store",
-//   });
-//   const products = await res.json();
-//   return products;
-// }
+async function getProducts() {
+  const res = await fetch("https://fakestoreapi.com/products", {
+    cache: "no-store",
+  });
+  const products = await res.json();
+  return products;
+}
 
 export default async function Home() {
   const products = await getProducts();

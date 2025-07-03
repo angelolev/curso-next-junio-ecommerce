@@ -34,8 +34,6 @@ export const ShoppingCartProvider = ({
     }
   }, []);
 
-  console.log(cartItems, "elementos del carrito");
-
   return (
     <ShoppingCartContext.Provider
       value={{ cartItems, setCartItems, addToCart }}

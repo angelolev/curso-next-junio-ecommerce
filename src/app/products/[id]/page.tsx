@@ -1,11 +1,14 @@
-import { getProductById, getProducts } from "@/lib/db";
 import styles from "./products.module.css";
 import ButtonAddToCart from "@/components/common/ButtonAddToCart";
 import Image from "next/image";
+import { ProductProps } from "@/types/product";
 
 export async function generateStaticParams() {
-  const products = await getProducts();
-  return products.map((product) => ({
+  const res = await fetch("https://fakestoreapi.com/products", {
+    cache: "no-store",
+  });
+  const products = await res.json();
+  return products.map((product: ProductProps) => ({
     id: product.id.toString(),
   }));
 }
@@ -18,7 +21,10 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = await getProductById(Number(id));
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    cache: "no-store",
+  });
+  const product = await res.json();
 
   return (
     <section className={styles.container}>
