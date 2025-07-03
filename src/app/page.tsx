@@ -15,6 +15,7 @@ import { ProductProps } from "@/types/product";
 
 export default async function Home() {
   const products = await getProducts();
+
   return (
     // <Suspense fallback={<div>Loading...</div>}>
     //   <ProductsClient products={products} />

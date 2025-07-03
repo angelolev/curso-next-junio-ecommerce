@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CartIcon from "../CartIcon";
+import CartButton from "../CartButton";
 
 export default function Nav() {
   return (
@@ -7,12 +7,7 @@ export default function Nav() {
       <ul className="flex gap-6 justify-end">
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
-        <Link href="/cart" className="relative">
-          <CartIcon />
-          <span className="bg-red-400 text-white px-2 py-1 rounded-full text-sm absolute -top-5  -right-3">
-            0
-          </span>
-        </Link>
+        <CartButton />
       </ul>
     </nav>
   );

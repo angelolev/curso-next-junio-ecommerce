@@ -1,5 +1,7 @@
 import { getProductById, getProducts } from "@/lib/db";
 import styles from "./products.module.css";
+import ButtonAddToCart from "@/components/common/ButtonAddToCart";
+import Image from "next/image";
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -21,16 +23,23 @@ export default async function ProductPage({
   return (
     <section className={styles.container}>
       <div className="product-image">
-        <img
+        {/* <img
           className={styles.image}
-          src={product?.image}
-          alt={product?.title}
+          src={product?.image || ""}
+          alt={product?.title || ""}
+        /> */}
+        <Image
+          src={product?.image || ""}
+          alt={product?.title || ""}
+          width={200}
+          height={200}
         />
       </div>
       <div className="product-information">
         <h1 className={styles.title}>{product?.title}</h1>
         <p className={styles.price}>S/ {product?.price}</p>
         <p className={styles.description}>{product?.description}</p>
+        {product && <ButtonAddToCart product={product} />}
       </div>
     </section>
   );
